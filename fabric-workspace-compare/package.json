@@ -1,0 +1,78 @@
+{
+  "name": "fabric-workspace-compare",
+  "displayName": "Fabric Workspace Compare",
+  "description": "Read-only comparison tool for Microsoft Fabric workspaces (notebooks and data pipelines).",
+  "version": "0.1.0",
+  "publisher": "your-publisher-id",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/Vsix-stuff.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "fabricCompare.compareWorkspaces",
+        "title": "Fabric Compare: Compare Workspaces",
+        "category": "Fabric Compare"
+      },
+      {
+        "command": "fabricCompare.openDiff",
+        "title": "Open Diff",
+        "category": "Fabric Compare",
+        "icon": "$(diff)"
+      },
+      {
+        "command": "fabricCompare.refresh",
+        "title": "Refresh",
+        "category": "Fabric Compare",
+        "icon": "$(refresh)"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "fabricCompareResults",
+          "name": "Fabric Compare"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "fabricCompare.refresh",
+          "when": "view == fabricCompareResults",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "fabricCompare.openDiff",
+          "when": "view == fabricCompareResults && viewItem == changedItem",
+          "group": "inline"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "npm run compile && vsce package",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.2.1",
+    "typescript": "^5.3.3"
+  }
+}
